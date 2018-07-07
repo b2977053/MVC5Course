@@ -112,9 +112,11 @@ namespace MVC5Course.Controllers
             {
 
                 var del = db.Product.Find(id);
-                db.Product.Remove(del);
-                db.SaveChanges();
-
+                if(del != null)
+                {
+                    db.Product.Remove(del);
+                    db.SaveChanges();
+                }
             }
             return RedirectToAction("Index2");
         }
