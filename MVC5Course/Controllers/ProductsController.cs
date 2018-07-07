@@ -51,7 +51,6 @@ namespace MVC5Course.Controllers
 
             return View();
         }
-
         [HttpPost]
         public ActionResult AddNewProduct(ProductViewModel data)
         {
@@ -78,6 +77,34 @@ namespace MVC5Course.Controllers
 
             return RedirectToAction("Index2");
         }
+
+
+        public ActionResult EditOne(int? id)
+        {
+
+            var Pdata = db.Product.Find(id);
+            return View(Pdata);
+        }
+        [HttpPost]
+        public ActionResult EditOne(int? id, ProductViewModel data)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(data);
+            }
+
+            var one = db.Product.Find(id);
+
+            one.ProductName = data.ProductName;
+            one.Stock = data.Stock;
+            one.Price = data.Price;
+
+            db.SaveChanges();
+
+            return RedirectToAction("Index2");
+        }
+
+
 
 
         // GET: Products/Details/5
