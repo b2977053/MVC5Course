@@ -21,20 +21,10 @@ namespace MVC5Course.Models
             this.OrderLine = new HashSet<OrderLine>();
         }
 
-        [Required]
         public int ProductId { get; set; }
-
-        [Required(ErrorMessage = "PN string")]
-        [StringLength(10, ErrorMessage = "PN string MAX 10")]
         public string ProductName { get; set; }
-
-        [Required]
-        [DisplayFormat(DataFormatString ="{0:N0}")]
         public Nullable<decimal> Price { get; set; }
-
-        [Required]
         public Nullable<bool> Active { get; set; }
-
         public Nullable<decimal> Stock { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
