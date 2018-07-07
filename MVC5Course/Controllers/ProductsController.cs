@@ -106,7 +106,18 @@ namespace MVC5Course.Controllers
             return RedirectToAction("Index2");
         }
 
+        public ActionResult DelectOne(int? id)
+        {
+            if(id != null)
+            {
 
+                var del = db.Product.Find(id);
+                db.Product.Remove(del);
+                db.SaveChanges();
+
+            }
+            return RedirectToAction("Index2");
+        }
 
 
         // GET: Products/Details/5
