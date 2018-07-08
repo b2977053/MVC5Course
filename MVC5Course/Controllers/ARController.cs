@@ -16,10 +16,8 @@ namespace MVC5Course.Controllers
 
         public ActionResult ViewTest()
         {
-            return View();
-
-
-            return View();
+            string model = "MODEL";
+            return View((object)model);
         }
     }
 }
