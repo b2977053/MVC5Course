@@ -10,17 +10,26 @@ using MVC5Course.Models;
 
 namespace MVC5Course.Controllers
 {
+    [RoutePrefix("clients")]
     public class ClientsController : Controller
     {
-        ClientRepository repo = RepositoryHelper.GetClientRepository();
+        ClientRepository repo;
+        OccupationRepository occuRepo;
 
-        // GET: Clients
+        public ClientsController()
+        {
+            repo = RepositoryHelper.GetClientRepository();
+            occuRepo = RepositoryHelper.GetOccupationRepository(repo.UnitOfWork);
+        }
+
+        [Route("")]
         public ActionResult Index()
         {
             var client = repo.All();
             return View(client.Take(10));
         }
 
+        [Route("search")]
         public ActionResult Search(string keyword)
         {
             var client = repo.搜尋名稱(keyword);
@@ -28,14 +37,14 @@ namespace MVC5Course.Controllers
             return View("Index", client);
         }
 
-        // GET: Clients/Details/5
+        [Route("{id}")]
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = repo.Find(1);
+            Client client = repo.Find(id.Value);
             if (client == null)
             {
                 return HttpNotFound();
@@ -43,10 +52,9 @@ namespace MVC5Course.Controllers
             return View(client);
         }
 
-        // GET: Clients/Create
+        [Route("create")]
         public ActionResult Create()
         {
-            var occuRepo = RepositoryHelper.GetOccupationRepository();
             ViewBag.OccupationId = new SelectList(occuRepo.All(), "OccupationId", "OccupationName");
             return View();
         }
@@ -56,6 +64,7 @@ namespace MVC5Course.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("create")]
         public ActionResult Create([Bind(Include = "ClientId,FirstName,MiddleName,LastName,Gender,DateOfBirth,CreditRating,XCode,OccupationId,TelephoneNumber,Street1,Street2,City,ZipCode,Longitude,Latitude,Notes,IdNumber")] Client client)
         {
             if (ModelState.IsValid)
@@ -65,12 +74,12 @@ namespace MVC5Course.Controllers
                 return RedirectToAction("Index");
             }
 
-            var occuRepo = RepositoryHelper.GetOccupationRepository();
             ViewBag.OccupationId = new SelectList(occuRepo.All(), "OccupationId", "OccupationName", client.OccupationId);
             return View(client);
         }
 
         // GET: Clients/Edit/5
+        [Route("edit/{id}")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -82,7 +91,7 @@ namespace MVC5Course.Controllers
             {
                 return HttpNotFound();
             }
-            var occuRepo = RepositoryHelper.GetOccupationRepository();
+
             ViewBag.OccupationId = new SelectList(occuRepo.All(), "OccupationId", "OccupationName", client.OccupationId);
             return View(client);
         }
@@ -92,6 +101,7 @@ namespace MVC5Course.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("edit/{id}")]
         public ActionResult Edit([Bind(Include = "ClientId,FirstName,MiddleName,LastName,Gender,DateOfBirth,CreditRating,XCode,OccupationId,TelephoneNumber,Street1,Street2,City,ZipCode,Longitude,Latitude,Notes,IdNumber")] Client client)
         {
             //深入了解 ModelState 內部細節  https://blog.miniasp.com/post/2016/03/14/ASPNET-MVC-Developer-Note-Part-28-Understanding-ModelState.aspx
@@ -102,12 +112,13 @@ namespace MVC5Course.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            var occuRepo = RepositoryHelper.GetOccupationRepository();
+
             ViewBag.OccupationId = new SelectList(occuRepo.All(), "OccupationId", "OccupationName", client.OccupationId);
             return View(client);
         }
 
         // GET: Clients/Delete/5
+        [Route("delete/{id}")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -125,6 +136,7 @@ namespace MVC5Course.Controllers
         // POST: Clients/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Route("delete/{id}")]
         public ActionResult DeleteConfirmed(int id)
         {
             Client client = repo.Find(id);
