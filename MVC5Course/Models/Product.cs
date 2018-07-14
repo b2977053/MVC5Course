@@ -11,16 +11,19 @@ namespace MVC5Course.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Product
     {
+    	partial void Initiallize();
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
             this.OrderLine = new HashSet<OrderLine>();
+    
+    		Initiallize();
         }
-
+    
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public Nullable<decimal> Price { get; set; }

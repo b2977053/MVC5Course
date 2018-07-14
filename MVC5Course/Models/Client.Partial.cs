@@ -9,6 +9,11 @@ namespace MVC5Course.Models
     [MetadataType(typeof(ClientMetaData))]
     public partial class Client : IValidatableObject
     {
+        partial void Initiallize()
+        {
+            this.City = "City";
+        }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (this.Longitude.HasValue != this.Latitude.HasValue)
