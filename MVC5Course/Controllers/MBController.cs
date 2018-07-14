@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MVC5Course.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,8 +7,10 @@ using System.Web.Mvc;
 
 namespace MVC5Course.Controllers
 {
-    public class MBController : Controller
+    public class MBController : BaseController
     {
+        private FabricsEntities db = new FabricsEntities();
+
         // GET: MB
         public ActionResult Index()
         {
@@ -18,6 +21,8 @@ namespace MVC5Course.Controllers
 
         public ActionResult ViewBagDemo()
         {
+            ViewData["Data"] = db.Client.Take(5).ToList();
+
             ViewBag.Text = "Hi";
             return View();
         }
