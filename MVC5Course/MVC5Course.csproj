@@ -157,6 +157,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MBController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -327,6 +328,12 @@
     <Content Include="Views\Clients\Index.cshtml" />
     <Content Include="Views\AR\ViewTest.cshtml" />
     <Content Include="Views\AR\Index.cshtml" />
+    <Content Include="Views\MB\Index.cshtml" />
+    <Content Include="Views\MB\viewbackDemo.cshtml" />
+    <Content Include="Views\MB\ViewDataDemo.cshtml" />
+    <Content Include="Views\MB\ActionName.cshtml" />
+    <Content Include="Views\MB\TempDataDemo.cshtml" />
+    <Content Include="Views\MB\ViewBagDemo.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
