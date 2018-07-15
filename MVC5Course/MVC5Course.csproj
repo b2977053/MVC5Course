@@ -512,7 +512,7 @@
     <Content Include="Views\MB\ViewBagDemo.cshtml" />
     <Content Include="Views\Shared\Error_DbEntityValidationException.cshtml" />
     <Content Include="Views\Razor\Index.cshtml" />
-    <Content Include="Views\Razor\Metro.cshtml" />
+    <Content Include="Views\Razor\Dashboard.cshtml" />
     <Content Include="Views\Razor\_LayoutMetro.cshtml" />
     <Content Include="Views\Razor\_ViewStart.cshtml" />
   </ItemGroup>
