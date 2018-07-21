@@ -18,7 +18,7 @@ namespace MVC5Course.Controllers
         public ActionResult Index()
         {
             var order = db.Order.Include(o => o.Client);
-            return View(order.ToList());
+            return View(order.Take(10));
         }
 
         // GET: Orders/Details/5
